@@ -25,6 +25,7 @@ require "gconfig/version"
 #
 # puts MyModule.config.mailer_sender
 # puts MyModule.config.age
+# puts MyModule.config.to_h
 
 module GConfig
   def config
@@ -48,5 +49,16 @@ module GConfig
       self.instance_variable_set("@#{name}", value)
       self.class.send(:attr_accessor, name)
     end
+
+    def to_h
+      result = {}
+      self.instance_variables.each do |name|
+        renaming = name.to_s.gsub('@', '').to_sym
+        result[renaming] = self.send(renaming)
+      end
+      result
+    end
+
+    alias :to_hash :to_h
   end
 end

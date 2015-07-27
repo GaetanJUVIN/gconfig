@@ -37,6 +37,7 @@ end
 puts MyModule.config.mailer_sender
 puts MyModule.config.age
 
+puts MyModule.config.to_h
 ```
 
 
